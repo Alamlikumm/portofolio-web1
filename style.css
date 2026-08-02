@@ -294,6 +294,12 @@ p {
   transition: var(--transition-smooth);
 }
 
+.header.scrolled {
+  background: rgba(10, 8, 16, 0.85);
+  border-bottom-color: rgba(255, 77, 138, 0.12);
+  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.55);
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -680,6 +686,7 @@ p {
 section {
   padding: 120px 0;
   position: relative;
+  scroll-margin-top: 90px;
 }
 
 .section-container {
@@ -697,6 +704,10 @@ section {
   font-size: clamp(2.5rem, 6vw, 4.2rem);
   text-transform: uppercase;
   margin-bottom: 60px;
+}
+
+.text-center {
+  text-align: center;
 }
 
 /* ----------------------------------------------------
@@ -1467,6 +1478,236 @@ body.light-theme .gallery-item {
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+/* ----------------------------------------------------
+   HERO LOAD-IN ANIMATION
+---------------------------------------------------- */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-left > * {
+  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-left > *:nth-child(1) { animation-delay: 0.05s; }
+.hero-left > *:nth-child(2) { animation-delay: 0.15s; }
+.hero-left > *:nth-child(3) { animation-delay: 0.25s; }
+.hero-left > *:nth-child(4) { animation-delay: 0.35s; }
+.hero-left > *:nth-child(5) { animation-delay: 0.45s; }
+
+.card-sticky-wrapper {
+  animation: fade-up 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+}
+
+.hero-title-huge .gradient-text {
+  background-size: 200% 200%;
+  animation: gradient-shift 7s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ----------------------------------------------------
+   HERO TYPEWRITER
+---------------------------------------------------- */
+.hero-typewriter {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  color: var(--text-muted);
+  margin-bottom: 40px;
+  min-height: 1.6em;
+}
+
+.typewriter-bracket {
+  color: var(--accent-coral);
+  font-weight: 700;
+}
+
+.typewriter-text {
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+.typewriter-caret {
+  width: 2px;
+  height: 1.15em;
+  background: var(--accent-pink);
+  animation: caret-blink 1s step-end infinite;
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-typewriter {
+    justify-content: center;
+  }
+}
+
+/* ----------------------------------------------------
+   3D TILT ON HERO FLIP CARD
+---------------------------------------------------- */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* ----------------------------------------------------
+   TECH MARQUEE
+---------------------------------------------------- */
+.marquee {
+  position: relative;
+  overflow: hidden;
+  padding: 22px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(18, 14, 30, 0.35);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 32s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-item {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.marquee-item::after {
+  content: '✦';
+  color: var(--accent-pink);
+  font-size: 0.7rem;
+  margin-left: 48px;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ----------------------------------------------------
+   SKILL TAGS STAGGER REVEAL
+---------------------------------------------------- */
+.skills-grid .skill-tag {
+  opacity: 0;
+  transition:
+    all 0.15s ease,
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s);
+}
+
+.about-section.visible .skill-tag {
+  opacity: 1;
+}
+
+.about-section.visible .skill-tag:nth-child(1) { --delay: 0.04s; }
+.about-section.visible .skill-tag:nth-child(2) { --delay: 0.08s; }
+.about-section.visible .skill-tag:nth-child(3) { --delay: 0.12s; }
+.about-section.visible .skill-tag:nth-child(4) { --delay: 0.16s; }
+.about-section.visible .skill-tag:nth-child(5) { --delay: 0.20s; }
+.about-section.visible .skill-tag:nth-child(6) { --delay: 0.24s; }
+.about-section.visible .skill-tag:nth-child(7) { --delay: 0.28s; }
+.about-section.visible .skill-tag:nth-child(8) { --delay: 0.32s; }
+.about-section.visible .skill-tag:nth-child(9) { --delay: 0.36s; }
+
+/* ----------------------------------------------------
+   TIMELINE SCROLL DRAW
+---------------------------------------------------- */
+.journey-section .timeline::before {
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
+}
+
+.journey-section.visible .timeline::before {
+  transform: scaleY(1);
+}
+
+/* ----------------------------------------------------
+   BACK TO TOP BUTTON
+---------------------------------------------------- */
+.back-to-top {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-gradient);
+  color: #0a0810;
+  box-shadow: 0 10px 30px -8px rgba(255, 77, 138, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  transition: var(--transition-smooth);
+  z-index: 900;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px -10px rgba(255, 77, 138, 0.6);
+}
+
+/* ----------------------------------------------------
+   POLISH: SELECTION & FOCUS
+---------------------------------------------------- */
+::selection {
+  background: var(--accent-pink);
+  color: #0a0810;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-pink);
+  outline-offset: 3px;
 }
 
 /* Accessibility: Reduced Motion Override */

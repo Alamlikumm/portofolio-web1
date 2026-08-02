@@ -256,3 +256,92 @@ window.addEventListener('touchmove', (e) => {
 window.addEventListener('touchend', () => {
   isPulling = false;
 });
+
+// ----------------------------------------------------
+// EXTRA POLISH
+// ----------------------------------------------------
+
+// 6. Hero Typewriter Effect
+const typewriterEl = document.querySelector('.typewriter-text');
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (typewriterEl) {
+  if (!reducedMotion) {
+    const roles = ['Web Developer', 'Full Stack Developer', 'Tech Enthusiast'];
+    let roleIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+
+    const typeTick = () => {
+      const current = roles[roleIndex];
+      charIndex += deleting ? -1 : 1;
+      typewriterEl.textContent = current.slice(0, charIndex);
+
+      let delay = deleting ? 35 : 70;
+      if (!deleting && charIndex === current.length) {
+        delay = 1800;
+        deleting = true;
+      } else if (deleting && charIndex === 0) {
+        deleting = false;
+        roleIndex = (roleIndex + 1) % roles.length;
+        delay = 350;
+      }
+      setTimeout(typeTick, delay);
+    };
+    typeTick();
+  } else {
+    typewriterEl.textContent = 'Web Developer';
+  }
+}
+
+// 7. 3D Tilt for Hero Flip Card (Desktop Only)
+const card3d = document.querySelector('.card-3d');
+const isTouchDevice = window.matchMedia('(max-width: 1024px)').matches;
+
+if (card3d && !reducedMotion && !isTouchDevice) {
+  card3d.addEventListener('mousemove', (e) => {
+    const rect = card3d.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    card3d.style.transform = `rotateY(${x * 10}deg) rotateX(${y * -8}deg)`;
+  });
+
+  card3d.addEventListener('mouseleave', () => {
+    card3d.style.transform = '';
+  });
+}
+
+// 8. Back to Top Button
+const backToTop = document.querySelector('.back-to-top');
+if (backToTop) {
+  window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('show', window.scrollY > 600);
+  }, { passive: true });
+
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+// 9. Header Elevation on Scroll
+const siteHeader = document.querySelector('.header');
+if (siteHeader) {
+  window.addEventListener('scroll', () => {
+    siteHeader.classList.toggle('scrolled', window.scrollY > 10);
+  }, { passive: true });
+}
+
+// 10. Copy Email to Clipboard
+const emailCard = document.querySelector('.link-card-primary');
+if (emailCard) {
+  emailCard.addEventListener('click', async () => {
+    const emailEl = emailCard.querySelector('.link-title');
+    if (!emailEl) return;
+    try {
+      await navigator.clipboard.writeText(emailEl.textContent.trim());
+      showToast('Email tersalin!');
+    } catch {
+      // Clipboard tidak tersedia; mailto tetap berfungsi sebagai fallback
+    }
+  });
+}
