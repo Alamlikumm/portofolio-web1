@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Halaman Tidak Ditemukan | Darussalam Ridho</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <meta name="robots" content="noindex">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0a0810;
+      color: #e8e6ee;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .code {
+      font-size: clamp(4rem, 15vw, 8rem);
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      background: linear-gradient(135deg, #ff4d8a, #ff8158, #ffd166);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+    }
+
+    .msg {
+      margin-top: 1.5rem;
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      opacity: 0.8;
+    }
+
+    .link {
+      display: inline-block;
+      margin-top: 2.5rem;
+      padding: 0.85rem 2rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ff4d8a, #ff8158);
+      color: #0a0810;
+      font-weight: 700;
+      text-decoration: none;
+      font-family: inherit;
+      transition: transform 0.2s ease;
+    }
+
+    .link:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div class="code">404</div>
+    <p class="msg">Halaman yang kamu cari tidak ditemukan.<br>Mungkin sudah dipindah atau tidak pernah ada.</p>
+    <a class="link" href="/">Kembali ke Beranda</a>
+  </div>
+</body>
+
+</html>
