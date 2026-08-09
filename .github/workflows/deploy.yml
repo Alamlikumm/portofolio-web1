@@ -1,0 +1,23 @@
+name: Deploy to Hostdata.id
+
+on:
+  push:
+    branches:
+      - master # Ubah ke 'master' jika branch utama Anda bernama master
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4
+    
+    - name: 📂 Sync files via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        # Jika Anda ingin mendeploy ke folder tertentu (misal: public_html), buka komentar di bawah ini:
+        server-dir: public_html/
