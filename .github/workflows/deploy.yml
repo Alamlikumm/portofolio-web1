@@ -21,3 +21,5 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         # Jika Anda ingin mendeploy ke folder tertentu (misal: public_html), buka komentar di bawah ini:
         server-dir: public_html/
+        timeout: 300000 # Menambah waktu timeout menjadi 5 menit (300000 ms) untuk mencegah error ECONNRESET
+        log-level: verbose
